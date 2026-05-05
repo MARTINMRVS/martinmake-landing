@@ -1334,23 +1334,44 @@ made in Santiago.</h1>
 
 <script>
 
-  // IntersectionObserver — toggle .in-view + active nav
+  // IntersectionObserver — separated concerns:
+  //  · revealObs (threshold 0): triggers .in-view as soon as ANY pixel enters viewport.
+  //    Critical for mobile, where stacked sections often exceed viewport height
+  //    (max possible intersection ratio < 0.4, so a single observer at 0.4 never fires).
+  //  · navObs (threshold 0.4): tracks "currently focused" section for active nav highlight.
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav ul a[data-target]');
 
-  const obs = new IntersectionObserver((entries) => {
+  const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0 });
+
+  const navObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
         const id = entry.target.id;
         navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
       }
     });
   }, { threshold: 0.4 });
 
-  sections.forEach(s => obs.observe(s));
+  sections.forEach(s => { revealObs.observe(s); navObs.observe(s); });
 
-  // Wattai count-up — triggers when section enters
+  // Fail-safe: if any section is still hidden 1.5s after load (extremely tall
+  // sections, prerender quirks, paused tabs, observer bugs), force-reveal it.
+  // Cheap insurance — runs once, no observers left dangling.
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      sections.forEach(s => s.classList.add('in-view'));
+    }, 1500);
+  });
+
+  // Wattai count-up — triggers when section enters (lower threshold for mobile reach)
   const wCounter = document.getElementById('wCounter');
   const phoneCounter = document.getElementById('phoneCounter');
   let wattaiAnimated = false;
@@ -1362,7 +1383,7 @@ made in Santiago.</h1>
         animateCount(phoneCounter, 0, 38420, 1400, v => '$' + v.toLocaleString('es-CL'));
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.15 });
   wattaiObs.observe(document.getElementById('wattai'));
 
   function animateCount(el, from, to, duration, format) {
