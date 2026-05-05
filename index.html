@@ -773,6 +773,182 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
   }
+
+  /* ─── Service card click affordance ─── */
+  .service-card { cursor: pointer; }
+  .service-card::after {
+    content: 'Ver journey →';
+    position: absolute; bottom: 18px; right: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--terra-2);
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity 220ms ease-out, transform 220ms ease-out;
+  }
+  .service-card:hover::after,
+  .service-card:focus-visible::after { opacity: 1; transform: translateX(0); }
+  .service-card:focus-visible {
+    outline: 2px solid var(--terra-2); outline-offset: 3px;
+  }
+
+  /* ─── Journey Modal ─── */
+  body.jm-open { overflow: hidden; }
+  .journey-modal[hidden] { display: none; }
+  .journey-modal {
+    position: fixed; inset: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .jm-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(7,5,3,0.78);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    animation: jmFadeIn 220ms ease-out;
+  }
+  .jm-content {
+    position: relative;
+    width: 100%; max-width: 1180px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: 22px;
+    padding: 56px 56px 44px;
+    animation: jmPop 320ms cubic-bezier(.2,.8,.2,1);
+  }
+  @media (max-width: 768px) {
+    .journey-modal { padding: 0; }
+    .jm-content { border-radius: 0; padding: 70px 22px 34px; max-height: 100vh; max-width: none; }
+  }
+
+  .jm-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 40px; height: 40px; border-radius: 12px;
+    background: rgba(241,231,216,0.06);
+    border: 1px solid var(--rule);
+    color: var(--fg-2);
+    font-size: 22px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 200ms ease-out;
+  }
+  .jm-close:hover { background: var(--terra); color: var(--bg); border-color: var(--terra); transform: rotate(90deg); }
+  .jm-close:focus-visible { outline: 2px solid var(--terra-2); outline-offset: 3px; }
+
+  .jm-head { margin-bottom: 38px; padding-right: 60px; }
+  .jm-num {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--terra-2);
+    margin-bottom: 10px;
+  }
+  .jm-head h2 {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 38px; letter-spacing: -0.035em; line-height: 1.05;
+    color: var(--fg);
+  }
+  @media (max-width: 768px) { .jm-head h2 { font-size: 28px; } }
+
+  .jm-steps {
+    list-style: none; padding: 0; margin: 0 0 36px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) { .jm-steps { grid-template-columns: 1fr; gap: 14px; } }
+
+  .jm-step {
+    position: relative;
+    display: flex; flex-direction: column;
+    gap: 14px;
+    padding: 22px 20px 24px;
+    background: rgba(241,231,216,0.025);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 380ms ease-out, transform 380ms ease-out;
+  }
+  .journey-modal.is-active .jm-step { opacity: 1; transform: translateY(0); }
+  .journey-modal.is-active .jm-step:nth-child(1) { transition-delay: 120ms; }
+  .journey-modal.is-active .jm-step:nth-child(2) { transition-delay: 220ms; }
+  .journey-modal.is-active .jm-step:nth-child(3) { transition-delay: 320ms; }
+  .journey-modal.is-active .jm-step:nth-child(4) { transition-delay: 420ms; }
+
+  .jm-icon {
+    width: 92px; height: 92px;
+    background: var(--paper);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    align-self: flex-start;
+  }
+  .jm-icon svg { width: 64px; height: 64px; display: block; }
+
+  .jm-kw {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--terra-2);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .jm-kw .jm-n { color: var(--fg-mute); }
+  .jm-step h3 {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 17px; letter-spacing: -0.02em; line-height: 1.2;
+    color: var(--fg);
+  }
+  .jm-step p {
+    font-family: 'Geist', sans-serif; font-weight: 400;
+    font-size: 13px; line-height: 1.55;
+    color: var(--fg-2); margin: 0;
+  }
+
+  /* connector arrow between steps (desktop only) */
+  .jm-arrow {
+    position: absolute;
+    top: 55px;
+    right: -16px;
+    width: 22px; height: 14px;
+    color: var(--terra-deep);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 260ms ease-out;
+    z-index: 2;
+  }
+  .jm-step:last-child .jm-arrow { display: none; }
+  .jm-arrow svg { width: 100%; height: 100%; }
+  .jm-arrow path { stroke-dasharray: 30; stroke-dashoffset: 30; transition: stroke-dashoffset 600ms ease-out; }
+  .journey-modal.is-active .jm-step:nth-child(1) .jm-arrow { transition-delay: 240ms; opacity: 1; }
+  .journey-modal.is-active .jm-step:nth-child(2) .jm-arrow { transition-delay: 340ms; opacity: 1; }
+  .journey-modal.is-active .jm-step:nth-child(3) .jm-arrow { transition-delay: 440ms; opacity: 1; }
+  .journey-modal.is-active .jm-arrow path { stroke-dashoffset: 0; transition-delay: 280ms; }
+  @media (max-width: 900px) { .jm-arrow { display: none; } }
+
+  .jm-philosophy {
+    text-align: center;
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 17px; letter-spacing: -0.015em;
+    color: var(--fg-2);
+    margin: 30px auto 26px;
+    max-width: 580px; line-height: 1.5;
+  }
+  .jm-philosophy em { font-style: normal; color: var(--terra-2); }
+
+  .jm-cta-row { text-align: center; }
+  .jm-cta { display: inline-flex; align-items: center; gap: 10px; }
+
+  @keyframes jmFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes jmPop {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .jm-backdrop, .jm-content { animation: none; }
+    .jm-step { transition: none; opacity: 1; transform: none; }
+    .jm-arrow { transition: none; opacity: 1; }
+    .jm-arrow path { transition: none; stroke-dashoffset: 0; }
+    .jm-close { transition: none; }
+    .jm-close:hover { transform: none; }
+  }
 </style>
 </head>
 <body>
@@ -1043,7 +1219,7 @@ made in Santiago.</h1>
         </div>
 
         <div class="services-grid">
-          <article class="service-card">
+          <article class="service-card" data-service="brand" role="button" tabindex="0" aria-label="Ver journey: Diseño de marca">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 v18 M3 12 h18"/><circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.25" stroke="none"/></svg>
             </div>
@@ -1054,7 +1230,7 @@ made in Santiago.</h1>
             </div>
           </article>
 
-          <article class="service-card">
+          <article class="service-card" data-service="web" role="button" tabindex="0" aria-label="Ver journey: Diseño web">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9 h18"/><circle cx="6" cy="6.5" r="0.6" fill="currentColor"/><circle cx="8.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
             </div>
@@ -1065,7 +1241,7 @@ made in Santiago.</h1>
             </div>
           </article>
 
-          <article class="service-card">
+          <article class="service-card" data-service="apps" role="button" tabindex="0" aria-label="Ver journey: Web apps">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" opacity="0.3"/></svg>
             </div>
@@ -1076,7 +1252,7 @@ made in Santiago.</h1>
             </div>
           </article>
 
-          <article class="service-card">
+          <article class="service-card" data-service="mobile" role="button" tabindex="0" aria-label="Ver journey: Apps móviles">
             <div class="service-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18 h4"/></svg>
             </div>
@@ -1151,6 +1327,23 @@ made in Santiago.</h1>
 
 </main>
 
+<!-- ═══ Service Journey Modal ═══ -->
+<div class="journey-modal" id="journeyModal" role="dialog" aria-modal="true" aria-labelledby="jmTitle" hidden>
+  <div class="jm-backdrop" data-close></div>
+  <div class="jm-content" role="document">
+    <button class="jm-close" type="button" aria-label="Cerrar journey" data-close>&times;</button>
+    <div class="jm-head">
+      <span class="jm-num" id="jmNum">01 · BRAND</span>
+      <h2 id="jmTitle">Diseño de marca</h2>
+    </div>
+    <ol class="jm-steps" id="jmSteps"></ol>
+    <p class="jm-philosophy">Craft, no templates. <em>Personas, no usuarios.</em> Productos, no proyectos.</p>
+    <div class="jm-cta-row">
+      <a href="mailto:hola@martinmake.com" class="cta primary jm-cta">Conversemos <span class="arrow">→</span> hola@martinmake.com</a>
+    </div>
+  </div>
+</div>
+
 <script>
 
   // IntersectionObserver — toggle .in-view + active nav
@@ -1203,6 +1396,134 @@ made in Santiago.</h1>
   navLinks.forEach(a => a.addEventListener('click', () => {
     document.getElementById('navList').classList.remove('open');
   }));
+
+  // ═══ Service Journey Modal ═══
+  const JOURNEY_ICONS = {
+    listen: '<svg viewBox="0 0 64 64" aria-hidden="true"><g style="mix-blend-mode:multiply"><circle cx="25" cy="32" r="18" fill="#3aa6c7" opacity="0.85"/><circle cx="40" cy="32" r="18" fill="#cf6e46" opacity="0.85"/></g></svg>',
+    design: '<svg viewBox="0 0 64 64" aria-hidden="true"><g style="mix-blend-mode:multiply"><rect x="9" y="9" width="20" height="20" rx="2" fill="#3aa6c7" opacity="0.9"/><rect x="35" y="9" width="20" height="20" rx="2" fill="#3aa6c7" opacity="0.9"/><rect x="9" y="35" width="20" height="20" rx="2" fill="#3aa6c7" opacity="0.9"/><rect x="38" y="38" width="20" height="20" rx="2" fill="#cf6e46" opacity="0.9" transform="rotate(8 48 48)"/></g></svg>',
+    build: '<svg viewBox="0 0 64 64" aria-hidden="true"><g style="mix-blend-mode:multiply"><rect x="8" y="14" width="42" height="13" rx="2" fill="#3aa6c7" opacity="0.88"/><rect x="14" y="22" width="42" height="13" rx="2" fill="#cf6e46" opacity="0.88"/><rect x="8" y="36" width="42" height="13" rx="2" fill="#3aa6c7" opacity="0.88"/></g></svg>',
+    launch: '<svg viewBox="0 0 64 64" aria-hidden="true"><g style="mix-blend-mode:multiply"><rect x="9" y="9" width="42" height="42" rx="9" fill="#cf6e46" opacity="0.92"/><path d="M21 32 L29 40 L46 22" stroke="#3aa6c7" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/></g></svg>'
+  };
+
+  const ARROW_SVG = '<svg viewBox="0 0 22 14" aria-hidden="true"><path d="M2 7 H18 M13 2 L19 7 L13 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const JOURNEY_DATA = {
+    brand: {
+      num: '01 · BRAND',
+      title: 'Diseño de marca',
+      steps: [
+        { icon: 'listen', kw: 'DISCOVERY', n: '01', t: 'Escuchamos tu idea', d: 'Entendemos tu problema, tu audiencia y tu visión. Brainstorming juntos — tu negocio + nuestra experiencia.' },
+        { icon: 'design', kw: 'DESIGN', n: '02', t: 'Diseñamos el sistema', d: 'Paleta, tipografía, logo, sistema visual completo. Cada decisión con propósito — nada genérico.' },
+        { icon: 'build',  kw: 'BUILD', n: '03', t: 'Construimos juntos', d: 'Iteración con feedback constante. Ves el progreso en cada etapa — no hay sorpresas al final.' },
+        { icon: 'launch', kw: 'LAUNCH', n: '04', t: 'Brand kit, todo tuyo', d: 'Brand kit exportable con todos los archivos editables. Tu marca, tu independencia.' }
+      ]
+    },
+    web: {
+      num: '02 · WEB',
+      title: 'Diseño web',
+      steps: [
+        { icon: 'listen', kw: 'DISCOVERY', n: '01', t: 'Escuchamos tu idea', d: 'Definimos objetivos, audiencia y mensaje. Tu visión + nuestra experiencia construyendo en la web.' },
+        { icon: 'design', kw: 'DESIGN', n: '02', t: 'Diseñamos la solución', d: 'Wireframes, diseño responsivo, SEO desde el día uno. Premium, hecho a medida — sin templates.' },
+        { icon: 'build',  kw: 'BUILD', n: '03', t: 'Construimos juntos', d: 'Desarrollo iterativo, feedback constante. Tú decides, nosotros ejecutamos.' },
+        { icon: 'launch', kw: 'LAUNCH', n: '04', t: 'Sitio live, todo tuyo', d: 'Sitio live, dominio configurado, código entregado. Listo para crecer.' }
+      ]
+    },
+    apps: {
+      num: '03 · APPS',
+      title: 'Web apps',
+      steps: [
+        { icon: 'listen', kw: 'DISCOVERY', n: '01', t: 'Escuchamos tu idea', d: 'Mapeamos flujos, casos de uso y problemas reales de quienes la van a usar todos los días.' },
+        { icon: 'design', kw: 'DESIGN', n: '02', t: 'Diseñamos la solución', d: 'Prototipos interactivos, flujos de usuario, arquitectura. La UX se prueba antes de codear.' },
+        { icon: 'build',  kw: 'BUILD', n: '03', t: 'Construimos juntos', d: 'Desarrollo iterativo con releases tempranos. Probás features mientras construimos.' },
+        { icon: 'launch', kw: 'LAUNCH', n: '04', t: 'Tu plataforma, tu equipo', d: 'Dashboard, hosting, documentación para tu equipo. Sin ataduras, lista para escalar.' }
+      ]
+    },
+    mobile: {
+      num: '04 · MOBILE',
+      title: 'Apps móviles & software',
+      steps: [
+        { icon: 'listen', kw: 'DISCOVERY', n: '01', t: 'Escuchamos tu idea', d: 'Entendemos a tu usuario móvil — contexto, fricciones, momentos clave. Tu idea en términos de gente real.' },
+        { icon: 'design', kw: 'DESIGN', n: '02', t: 'Diseñamos nativo', d: 'Diseño nativo iOS y Android, prototipo en tu teléfono desde el día uno. Se siente real, no maqueta.' },
+        { icon: 'build',  kw: 'BUILD', n: '03', t: 'Construimos juntos', d: 'Builds frecuentes en tu device, feedback continuo. Cada release es probable, no perfecta — perfectible.' },
+        { icon: 'launch', kw: 'LAUNCH', n: '04', t: 'App Store, todo tuyo', d: 'Publicación en App Store y Google Play, actualizaciones incluidas. Tu app, tus métricas.' }
+      ]
+    }
+  };
+
+  (function initJourneyModal() {
+    const modal = document.getElementById('journeyModal');
+    if (!modal) return;
+    const numEl = document.getElementById('jmNum');
+    const titleEl = document.getElementById('jmTitle');
+    const stepsEl = document.getElementById('jmSteps');
+    let lastTrigger = null;
+
+    function renderSteps(steps) {
+      stepsEl.innerHTML = steps.map(s => `
+        <li class="jm-step">
+          <div class="jm-icon">${JOURNEY_ICONS[s.icon] || ''}</div>
+          <span class="jm-kw"><span class="jm-n">${s.n}</span>${s.kw}</span>
+          <h3>${s.t}</h3>
+          <p>${s.d}</p>
+          <span class="jm-arrow">${ARROW_SVG}</span>
+        </li>
+      `).join('');
+    }
+
+    function openModal(serviceKey, trigger) {
+      const data = JOURNEY_DATA[serviceKey];
+      if (!data) return;
+      lastTrigger = trigger || null;
+      numEl.textContent = data.num;
+      titleEl.textContent = data.title;
+      renderSteps(data.steps);
+      modal.hidden = false;
+      document.body.classList.add('jm-open');
+      // double rAF so the entry transition fires
+      requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('is-active')));
+      // initial focus on close button
+      const closeBtn = modal.querySelector('.jm-close');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-active');
+      modal.hidden = true;
+      document.body.classList.remove('jm-open');
+      if (lastTrigger && typeof lastTrigger.focus === 'function') {
+        lastTrigger.focus();
+      }
+    }
+
+    // wire cards
+    document.querySelectorAll('.service-card[data-service]').forEach(card => {
+      card.addEventListener('click', () => openModal(card.dataset.service, card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card.dataset.service, card);
+        }
+      });
+    });
+
+    // close on backdrop / × / Esc
+    modal.addEventListener('click', (e) => {
+      if (e.target.matches('[data-close]')) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (modal.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); closeModal(); return; }
+      // focus trap
+      if (e.key === 'Tab') {
+        const focusables = modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  })();
 </script>
 
 </body>
