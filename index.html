@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Martin Make — Indie apps, made in Santiago.</title>
+<meta name="description" content="Indie app studio from Santiago, Chile. Apps that solve real problems — Pad Works, Wattai, Lithic.">
+<meta property="og:title" content="Martin Make — Indie apps, made in Santiago.">
+<meta property="og:description" content="Indie app studio from Santiago, Chile. Apps that solve real problems.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://martinmake.com">
+<meta property="og:image" content="https://martinmake.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Martin Make — Indie apps, made in Santiago.">
+<meta name="twitter:description" content="Indie app studio from Santiago, Chile. Apps that solve real problems.">
+<meta name="twitter:image" content="https://martinmake.com/og-image.png">
+<link rel="canonical" href="https://martinmake.com">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:#0e0a07; --bg-2:#15110d; --bg-3:#1c1612;
+    --rule:#2a2018; --rule-soft:#1f1812;
+    --fg:#f1e7d8; --fg-2:#b9aa90; --fg-mute:#6b5d4c;
+    --terra:#cf6e46; --terra-2:#e08a64; --terra-deep:#a85433;
+    --paper:#f6efe2; --paper-fg:#2a1f15;
+    --olive:#7a8b6f; --amber:#d49a3e; --brick:#c4513f; --slate:#6b8a9e;
+    --wattai:#E8923A;
+    --live:#7ec07e;
+  }
+
+  html { scroll-snap-type: y proximity; overflow-y: scroll; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: 'Geist', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  @media (max-width: 768px) {
+    html { scroll-snap-type: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* ─── Header ─── */
+  header.nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(14,10,7,0.55);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(42,32,24,0.5);
+  }
+  .nav .brand {
+    display:flex; align-items:center; gap:14px;
+    text-decoration: none;
+  }
+  .nav .brand-mark { width: 38px; height: 38px; flex-shrink: 0; display:block; }
+  .nav .brand-text {
+    display: flex; flex-direction: column;
+    line-height: 1; gap: 2px;
+  }
+  .nav .brand-text .small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.32em;
+    color: var(--fg-mute); text-transform: uppercase;
+  }
+  .nav .brand-text .big {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 20px; letter-spacing: -0.035em;
+    color: var(--terra-2);
+  }
+  .nav ul {
+    display: flex; gap: 28px; list-style: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .nav ul a {
+    color: var(--fg-mute); text-decoration: none;
+    transition: color 200ms ease-out;
+    padding: 4px 0; position: relative;
+  }
+  .nav ul a:hover, .nav ul a.active { color: var(--fg); }
+  .nav ul a.active::after {
+    content:''; position:absolute; left:0; right:0; bottom:-2px;
+    height:1px; background: var(--terra-2);
+  }
+  .menu-toggle { display:none; background:none; border:none; color:var(--fg); font-size: 22px; cursor:pointer; }
+
+  /* ─── Sticker column (right rail) ─── */
+  .sticker-rail {
+    position: fixed; top: 90px; right: 68px; z-index: 200;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 22px;
+    pointer-events: none;
+  }
+  .sticker {
+    pointer-events: auto;
+    background: none; border: none; padding: 0;
+    cursor: pointer;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+    transition: transform 240ms ease-out;
+    display: block;
+  }
+  .sticker svg { width: 100%; height: 100%; display: block; }
+  .sticker.s-riso  { width: 110px; height: 110px; transform: rotate(-7deg); }
+  .sticker.s-riso:hover  { transform: rotate(-7deg) scale(1.05); }
+  .sticker.s-circ  { width: 55px; height: 55px; transform: rotate(6deg); }
+  .sticker.s-circ:hover  { transform: rotate(6deg) scale(1.05); }
+  .sticker.s-liq   { width: 55px; height: 62px; transform: rotate(-4deg); }
+  .sticker.s-liq:hover   { transform: rotate(-4deg) scale(1.05); }
+  .sticker.s-glt   { width: 70px; height: 42px; transform: rotate(3deg); }
+  .sticker.s-glt:hover   { transform: rotate(3deg) scale(1.05); }
+  .sticker.s-pix   { width: 55px; height: 55px; transform: rotate(-5deg); }
+  .sticker.s-pix:hover   { transform: rotate(-5deg) scale(1.05); }
+
+  /* About stickers */
+  .sticker.s-holo  { width: 70px; height: 70px; transform: rotate(-6deg); }
+  .sticker.s-holo:hover  { transform: rotate(-6deg) scale(1.05); }
+  .sticker.s-dot   { width: 60px; height: 60px; transform: rotate(8deg); }
+  .sticker.s-dot:hover   { transform: rotate(8deg) scale(1.05); }
+  .about-stickers { display: flex; gap: 22px; justify-content: center; align-items: center; margin-top: 18px; }
+
+  /* Caption sticker bottom-left */
+  .sticker.s-cap {
+    position: fixed; left: 24px; bottom: 24px; z-index: 200;
+    width: 140px; height: auto; transform: rotate(-4deg);
+    cursor: default;
+  }
+  @media (max-width: 900px) {
+    .sticker-rail { right: 12px; gap: 14px; top: 72px; }
+    .sticker.s-riso { width: 70px; height: 70px; }
+    .sticker.s-circ, .sticker.s-pix { width: 36px; height: 36px; }
+    .sticker.s-liq { width: 36px; height: 40px; }
+    .sticker.s-glt { width: 48px; height: 28px; }
+    .sticker.s-cap { width: 96px; left: 12px; bottom: 12px; }
+  }
+  @media (max-width: 600px) {
+    .sticker-rail .s-glt, .sticker-rail .s-liq, .sticker-rail .s-pix { display: none; }
+  }
+  @media (max-width: 768px) {
+    header.nav { padding: 14px 20px; }
+    .nav ul { display: none; }
+    .nav ul.open {
+      display: flex; flex-direction: column; gap: 12px;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(14,10,7,0.95); backdrop-filter: blur(14px);
+      padding: 20px; border-bottom: 1px solid var(--rule);
+    }
+    .menu-toggle { display: block; }
+  }
+
+  /* ─── Sections base ─── */
+  section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 90px 60px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    section { padding: 84px 18px 40px; min-height: auto; }
+  }
+  .container { max-width: 1320px; width: 100%; margin: 0 auto; }
+
+  /* badges */
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px; border-radius: 999px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    border: 1px solid var(--rule);
+  }
+  .badge.live { color: var(--live); border-color: rgba(126,192,126,0.35); }
+  .badge.live::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--live); box-shadow: 0 0 8px var(--live); }
+  .badge.beta { color: var(--amber); border-color: rgba(212,154,62,0.45); }
+  .badge.dev { color: var(--fg-2); }
+  .badge.dev::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--fg-mute); }
+
+  /* CTAs */
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 12px;
+    font-size: 16px;
+    font-family: 'Geist', sans-serif; font-weight: 500; font-size: 14px;
+    text-decoration: none; transition: all 240ms ease-out;
+    border: 1px solid var(--rule);
+    color: var(--fg); background: var(--bg-2);
+  }
+  .cta:hover { border-color: var(--terra-2); color: var(--terra-2); transform: translateY(-1px); }
+  .cta.primary { background: var(--terra); color: var(--ink, #15110d); border-color: var(--terra); }
+  .cta.primary:hover { background: var(--terra-2); border-color: var(--terra-2); color: #15110d; }
+  .cta .arrow { transition: transform 240ms ease-out; }
+  .cta:hover .arrow { transform: translateX(3px); }
+
+  /* ════════ 01 HERO ════════ */
+  #hero { background: var(--bg); }
+  #hero::before {
+    content:''; position:absolute; bottom:-20%; left:-10%;
+    width: 60%; height: 60%;
+    background: radial-gradient(ellipse, rgba(207,110,70,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 32px;
+  }
+  .hero-lockup {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    opacity: 0; transform: translateY(8px) scale(0.96);
+  }
+  .hero-lockup .hero-small { margin-bottom: -2px; }
+  .in-view .hero-lockup { animation: fadeUp 600ms ease-out forwards; }
+  .hero-mark { width: 144px; height: 144px; display: block; }
+  .hero-lockup .hero-small {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.36em;
+    color: var(--fg-mute); text-transform: uppercase;
+  }
+  .hero-lockup .hero-word {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 56px; letter-spacing: -0.04em;
+    color: var(--terra-2); line-height: 1;
+  }
+  .hero-title {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(48px, 7vw, 96px); letter-spacing: -0.045em;
+    line-height: 0.98; max-width: 14ch;
+    opacity: 0; transform: translateY(12px);
+  }
+  .hero-title .accent { color: var(--terra-2); }
+  .in-view .hero-title { animation: fadeUp 600ms 220ms ease-out forwards; }
+  .hero-sub {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-mute);
+    opacity: 0; transform: translateY(8px);
+  }
+  .in-view .hero-sub { animation: fadeUp 500ms 440ms ease-out forwards; }
+  .hero-sub b { color: var(--fg-2); font-weight: 500; }
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.3em; color: var(--fg-mute); text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0;
+  }
+  .in-view .scroll-hint { animation: fadeUp 500ms 700ms ease-out forwards, pulse 2.6s 1.2s infinite; }
+  .scroll-hint .arrow-down { width: 1px; height: 24px; background: var(--fg-mute); position: relative; }
+  .scroll-hint .arrow-down::after {
+    content:''; position:absolute; bottom:0; left:-3px;
+    width:7px; height:7px; border-right: 1px solid var(--fg-mute); border-bottom: 1px solid var(--fg-mute);
+    transform: rotate(45deg) translate(-2px,-2px);
+  }
+
+  /* ════════ Product section common ════════ */
+  .product-grid {
+    display: grid; grid-template-columns: 1fr 1.05fr;
+    gap: 56px; align-items: center;
+    width: 100%;
+  }
+  @media (max-width: 1024px) {
+    .product-grid { gap: 40px; }
+  }
+  @media (max-width: 768px) {
+    .product-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+  .product-text { display: flex; flex-direction: column; gap: 18px;
+    opacity: 0; transform: translateX(-16px); }
+  .in-view .product-text { animation: fadeRight 600ms ease-out forwards; }
+  .product-text h2 {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(54px, 7vw, 100px);
+    letter-spacing: -0.045em; line-height: 0.96;
+  }
+  .product-text h2 .dot { color: var(--terra-2); }
+  .product-text .lede {
+    font-family: 'Archivo', sans-serif; font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 32px); line-height: 1.22;
+    letter-spacing: -0.02em; color: var(--fg);
+    max-width: 22ch;
+  }
+  .product-text .body {
+    font-size: clamp(16px, 1.25vw, 18px); line-height: 1.6; color: var(--fg-2);
+    max-width: 46ch;
+  }
+  .product-text .body b { color: var(--fg); font-weight: 500; }
+  .product-text .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+  @media (max-width: 768px) {
+    .product-text .actions .cta { flex: 1 1 auto; justify-content: center; min-width: 0; }
+  }
+  .product-visual { opacity: 0; transform: translateY(20px) scale(0.97); }
+  .in-view .product-visual { animation: fadeUp 700ms 200ms ease-out forwards; }
+
+  /* ════════ 02 PAD WORKS ════════ */
+  #padworks { background: var(--bg-2); }
+  #padworks::before {
+    content:''; position:absolute; top:-10%; right:-10%;
+    width: 50%; height: 60%;
+    background: radial-gradient(circle, rgba(212,154,62,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .pad-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    aspect-ratio: 1/1; max-width: 640px; width: 100%; margin: 0 auto;
+    padding: 32px; background: #0a0805;
+    border: 1px solid var(--rule); border-radius: 28px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+  }
+  @media (max-width: 768px) {
+    .pad-grid { max-width: 90vw; padding: 22px; gap: 10px; border-radius: 22px; }
+  }
+  .pad {
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--bg-3), #110d09);
+    border: 1px solid var(--rule);
+    position: relative;
+    transition: all 200ms ease-out;
+    opacity: 0; transform: scale(0.6);
+  }
+  .pad::after {
+    content:''; position:absolute; inset:5px;
+    border-radius: 7px; opacity: 0.85;
+  }
+  .in-view .pad { animation: padIn 400ms ease-out forwards; }
+  .pad:hover { transform: scale(0.96); filter: brightness(1.2); }
+  /* coloured pads */
+  .pad.c1::after { background: var(--terra); box-shadow: 0 0 16px rgba(207,110,70,0.4); }
+  .pad.c2::after { background: var(--amber); box-shadow: 0 0 16px rgba(212,154,62,0.4); }
+  .pad.c3::after { background: var(--olive); box-shadow: 0 0 14px rgba(122,139,111,0.35); }
+  .pad.c4::after { background: var(--brick); box-shadow: 0 0 14px rgba(196,81,63,0.35); }
+  .pad.c5::after { background: var(--slate); box-shadow: 0 0 14px rgba(107,138,158,0.3); }
+
+  /* ════════ 03 WATTAI ════════ */
+  #wattai { background: var(--bg); }
+  #wattai::before {
+    content:''; position:absolute; top:-10%; left:-10%;
+    width: 50%; height: 60%;
+    background: radial-gradient(circle, rgba(232,146,58,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .phone {
+    width: clamp(280px, 28vw, 340px); aspect-ratio: 9/19;
+    margin: 0 auto;
+    background: #15110d;
+    border-radius: 38px;
+    border: 8px solid #1c1612;
+    box-shadow:
+      0 30px 80px -20px rgba(0,0,0,0.7),
+      inset 0 0 0 1px rgba(255,255,255,0.04);
+    padding: 14px 12px 18px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .phone::before {
+    content:''; position:absolute; top:8px; left:50%; transform:translateX(-50%);
+    width: 80px; height: 22px; border-radius: 12px; background: #0a0805;
+  }
+  .phone-status {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--fg-2); padding: 0 12px 12px;
+    margin-top: 26px;
+  }
+  .phone-screen {
+    flex: 1; border-radius: 16px;
+    background: linear-gradient(180deg, #1a1410, #100c08);
+    padding: 20px 16px;
+    display: flex; flex-direction: column; gap: 14px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .phone-screen .w-mark {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--wattai);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Archivo', sans-serif; font-weight:800; font-size: 30px;
+    color: #15110d; letter-spacing: -0.04em;
+    margin: 4px auto 0;
+    box-shadow: 0 8px 24px rgba(232,146,58,0.4);
+  }
+  .phone-screen .w-app-name {
+    text-align:center; font-family:'Archivo', sans-serif; font-weight: 700;
+    font-size: 16px; letter-spacing: -0.02em;
+  }
+  .phone-screen .w-counter {
+    text-align:center;
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 38px; letter-spacing: -0.03em;
+    color: var(--wattai); line-height: 1;
+  }
+  .phone-screen .w-counter-sub {
+    text-align:center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-mute);
+  }
+  .phone-screen .w-bars {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;
+    margin-top: auto;
+  }
+  .phone-screen .w-bar {
+    height: 28px; border-radius: 4px;
+    background: linear-gradient(180deg, rgba(232,146,58,0.5), rgba(232,146,58,0.15));
+  }
+  .phone-screen .w-bar:nth-child(1) { height: 18px; }
+  .phone-screen .w-bar:nth-child(2) { height: 32px; }
+  .phone-screen .w-bar:nth-child(3) { height: 24px; }
+  .phone-screen .w-bar:nth-child(4) { height: 38px; }
+
+  .stat {
+    border: 1px solid var(--rule); border-radius: 12px;
+    padding: 14px 16px;
+    display: flex; align-items: baseline; gap: 12px;
+    background: var(--bg-2);
+  }
+  .stat .num {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: 32px; letter-spacing: -0.03em;
+    color: var(--wattai);
+  }
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-mute);
+  }
+
+  /* ════════ 04 LITHIC ════════ */
+  #lithic { background: var(--bg-2); }
+  #lithic::before {
+    content:''; position:absolute; bottom:-10%; right:-10%;
+    width: 50%; height: 60%;
+    background: radial-gradient(circle, rgba(107,138,158,0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .lithic-visual {
+    display: flex; flex-direction: column; gap: 20px;
+    align-items: center;
+  }
+  .lithic-stage {
+    width: 100%; max-width: 580px; aspect-ratio: 1/1;
+    background: radial-gradient(ellipse at center, #1f1812, #0e0a07);
+    border: 1px solid var(--rule); border-radius: 20px;
+    position: relative; overflow: hidden;
+  }
+  .lithic-stage svg { position:absolute; inset: 0; width: 100%; height: 100%; }
+  .lithic-stage .scan-line {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+  }
+  .in-view .lithic-stage .scan-line {
+    animation: drawScan 1400ms 300ms ease-out forwards;
+  }
+  .in-view .lithic-stage .scan-line.s2 { animation-delay: 500ms; }
+  .in-view .lithic-stage .scan-line.s3 { animation-delay: 700ms; }
+  .lithic-tags {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+  }
+  .lithic-tags span {
+    padding: 8px 14px; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--rule); color: var(--fg-2);
+  }
+  .lithic-tags span.active { color: var(--terra-2); border-color: var(--terra-2); }
+
+  /* ════════ 05 SERVICES ════════ */
+  #services { background: var(--bg); }
+  #services::before {
+    content:''; position:absolute; top:50%; right:-10%; transform: translateY(-50%);
+    width: 50%; height: 70%;
+    background: radial-gradient(circle, rgba(207,110,70,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .services-inner {
+    width: 100%; max-width: 1280px;
+    display: flex; flex-direction: column; gap: 44px;
+  }
+  .services-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end;
+    opacity: 0; transform: translateY(16px);
+  }
+  .in-view .services-head { animation: fadeUp 600ms ease-out forwards; }
+  @media (max-width: 900px) {
+    .services-head { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .services-head .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--terra-2); margin-bottom: 14px;
+  }
+  .services-head h2 {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(48px, 6vw, 84px);
+    letter-spacing: -0.045em; line-height: 1;
+  }
+  .services-head h2 .accent { color: var(--terra-2); }
+  .services-head .lead {
+    font-size: clamp(17px, 1.3vw, 20px); line-height: 1.6; color: var(--fg-2);
+    max-width: 46ch;
+  }
+  .services-head .lead b { color: var(--fg); font-weight: 500; }
+  .services-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  }
+  @media (max-width: 700px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+  .service-card {
+    border: 1px solid var(--rule);
+    background: var(--bg-2);
+    border-radius: 18px;
+    padding: 32px;
+    display: flex; gap: 24px; align-items: flex-start;
+    transition: all 240ms ease-out;
+    opacity: 0; transform: translateY(14px);
+  }
+  .in-view .service-card { animation: fadeUp 600ms ease-out forwards; }
+  .in-view .service-card:nth-child(1) { animation-delay: 100ms; }
+  .in-view .service-card:nth-child(2) { animation-delay: 200ms; }
+  .in-view .service-card:nth-child(3) { animation-delay: 300ms; }
+  .in-view .service-card:nth-child(4) { animation-delay: 400ms; }
+  .service-card:hover {
+    border-color: var(--terra-2);
+    background: var(--bg-3);
+    transform: translateY(-2px);
+  }
+  .service-icon {
+    width: 56px; height: 56px; flex-shrink: 0;
+    border-radius: 14px;
+    background: rgba(207,110,70,0.12);
+    border: 1px solid rgba(207,110,70,0.25);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--terra-2);
+  }
+  .service-card:hover .service-icon {
+    background: var(--terra);
+    border-color: var(--terra);
+    color: #15110d;
+  }
+  .service-icon svg { width: 26px; height: 26px; display: block; }
+  .service-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .service-body .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.2em; color: var(--fg-mute); text-transform: uppercase;
+  }
+  .service-body h3 {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 26px; letter-spacing: -0.025em; line-height: 1.1;
+    color: var(--fg);
+  }
+  .service-body p {
+    font-size: 16px; line-height: 1.55; color: var(--fg-2);
+  }
+  .services-cta {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 28px; border-top: 1px solid var(--rule);
+    flex-wrap: wrap; gap: 16px;
+    opacity: 0; transform: translateY(10px);
+  }
+  .in-view .services-cta { animation: fadeUp 600ms 600ms ease-out forwards; }
+  .services-cta .ask {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 26px; letter-spacing: -0.025em;
+    color: var(--fg);
+  }
+  @media (max-width: 600px) {
+    .services-cta { flex-direction: column; gap: 18px; align-items: flex-start; }
+    .services-cta .cta { width: 100%; justify-content: center; }
+  }
+  .services-cta .ask b { color: var(--terra-2); font-weight: 800; }
+
+  /* ════════ 06 ABOUT ════════ */
+  #about { background: var(--bg); }
+  #about::before {
+    content:''; position:absolute; bottom:0; left:0;
+    width: 60%; height: 50%;
+    background: radial-gradient(ellipse at 20% 100%, rgba(207,110,70,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .about-inner {
+    text-align: center; max-width: 820px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 24px; align-items: center;
+    opacity: 0; transform: translateY(16px);
+  }
+  .in-view .about-inner { animation: fadeUp 700ms ease-out forwards; }
+  .about-mark { width: 64px; height: 64px; display: block; }
+  .about-inner h2 {
+    font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(48px, 6vw, 84px);
+    letter-spacing: -0.045em; line-height: 1;
+  }
+  .about-inner h2 .accent { color: var(--terra-2); }
+  .about-inner .bio {
+    font-size: clamp(17px, 1.4vw, 20px); line-height: 1.6; color: var(--fg-2);
+    max-width: 600px;
+  }
+  .about-inner .bio b { color: var(--fg); font-weight: 500; }
+  .links {
+    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+    margin-top: 4px;
+  }
+  .links a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 18px; border-radius: 10px;
+    border: 1px solid var(--rule); background: var(--bg-2);
+    color: var(--fg); text-decoration: none;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.08em;
+    transition: all 200ms ease-out;
+  }
+  .links a:hover { border-color: var(--terra-2); color: var(--terra-2); }
+  .links a.email { background: var(--terra); border-color: var(--terra); color: #15110d; }
+  .links a.email:hover { background: var(--terra-2); border-color: var(--terra-2); }
+  footer.foot {
+    margin-top: 48px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-mute);
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+  }
+  footer.foot b { color: var(--fg-2); font-weight: 500; }
+
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes fadeRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes padIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes drawScan {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" data-screen-label="Header">
+  <a href="#hero" class="brand" aria-label="Martin Make home">
+    <svg class="brand-mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><rect width="96" height="96" rx="22" fill="#cf6e46"/><text x="48" y="48" text-anchor="middle" dominant-baseline="central" font-family="Archivo, sans-serif" font-weight="700" font-size="48" letter-spacing="-2.4" fill="#15110d">MM</text></svg>
+    <div class="brand-text">
+      <span class="small">MARTIN</span>
+      <span class="big">Make.</span>
+    </div>
+  </a>
+  <button class="menu-toggle" aria-label="Open menu" id="menuToggle">☰</button>
+  <ul id="navList">
+    <li><a href="#padworks" data-target="padworks">Pad Works</a></li>
+    <li><a href="#wattai" data-target="wattai">Wattai</a></li>
+    <li><a href="#lithic" data-target="lithic">Lithic</a></li>
+    <li><a href="#services" data-target="services">Services</a></li>
+    <li><a href="#about" data-target="about">About</a></li>
+  </ul>
+</header>
+
+<div class="sticker-rail" aria-label="Stickers de navegación">
+  <!-- B2 RISO → services -->
+  <button class="sticker s-riso" aria-label="Ver servicios" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="14" width="292" height="292" rx="22" fill="#f6efe2"/>
+      <g style="mix-blend-mode:multiply" opacity="0.85"><text x="156" y="180" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="200" letter-spacing="-12" fill="#3aa6c7">MM</text></g>
+      <g style="mix-blend-mode:multiply" opacity="0.85"><text x="166" y="186" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="200" letter-spacing="-12" fill="#cf6e46">MM</text></g>
+      <text x="30" y="262" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" letter-spacing="3" fill="#15110d">HIRE ME</text>
+      <text x="30" y="282" font-family="JetBrains Mono, monospace" font-weight="600" font-size="11" letter-spacing="3" fill="#cf6e46">SERVICES →</text>
+    </svg>
+  </button>
+
+  <!-- A3 CIRCULAR → about -->
+  <button class="sticker s-circ" aria-label="About / contacto" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="160" cy="160" r="150" fill="#f6efe2"/>
+      <circle cx="160" cy="160" r="138" fill="none" stroke="#15110d" stroke-width="2"/>
+      <defs><path id="curveA3land" d="M 160 160 m -118 0 a 118 118 0 1 1 236 0 a 118 118 0 1 1 -236 0"/></defs>
+      <text font-family="JetBrains Mono, monospace" font-weight="600" font-size="18" letter-spacing="6" fill="#15110d"><textPath href="#curveA3land" startOffset="0">AI BUILDER · DEVELOPER · SCL · AI BUILDER · DEVELOPER · SCL · </textPath></text>
+      <rect x="100" y="100" width="120" height="120" rx="22" fill="#cf6e46"/>
+      <text x="160" y="160" text-anchor="middle" dominant-baseline="central" font-family="Archivo, sans-serif" font-weight="700" font-size="60" letter-spacing="-3" fill="#15110d">MM</text>
+    </svg>
+  </button>
+
+  <!-- B1 LIQUID → wattai -->
+  <button class="sticker s-liq" aria-label="Wattai" onclick="document.getElementById('wattai').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lavaLand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff7a3d"/><stop offset="55%" stop-color="#cf6e46"/><stop offset="100%" stop-color="#a85433"/></linearGradient></defs>
+      <path d="M40 30 L280 30 Q300 30 300 50 L300 200 Q300 215 296 222 Q288 240 270 250 Q258 256 252 270 Q245 290 250 305 Q255 318 244 322 Q232 326 224 314 Q216 302 218 286 Q220 268 208 264 Q196 260 188 274 Q180 290 178 308 Q176 322 162 322 Q148 322 148 304 Q148 286 138 282 Q124 278 116 296 Q110 312 96 312 Q82 312 84 296 Q86 280 76 274 Q60 268 52 250 Q40 230 40 210 L40 50 Q40 30 40 30 Z" fill="url(#lavaLand)" stroke="#15110d" stroke-width="3"/>
+      <text x="170" y="140" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="900" font-size="120" letter-spacing="-5" fill="#15110d">MM</text>
+    </svg>
+  </button>
+
+  <!-- B5 GLITCH → lithic -->
+  <button class="sticker s-glt" aria-label="Lithic" onclick="document.getElementById('lithic').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 480 280" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="480" height="280" rx="16" fill="#0a0a0e"/>
+      <g font-family="Archivo, sans-serif" font-weight="900" font-size="140" letter-spacing="-6" text-anchor="middle">
+        <text x="244" y="180" fill="#ff2a5c" opacity="0.85">MAKE.</text>
+        <text x="240" y="180" fill="#2af6ff" opacity="0.85">MAKE.</text>
+        <text x="236" y="180" fill="#f6efe2">MAKE.</text>
+      </g>
+    </svg>
+  </button>
+
+  <!-- B3 8-BIT → padworks -->
+  <button class="sticker s-pix" aria-label="Pad Works" onclick="document.getElementById('padworks').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <rect x="0" y="0" width="320" height="320" rx="14" fill="#f6efe2"/>
+      <rect x="20" y="20" width="280" height="280" rx="0" fill="#0a0a14"/>
+      <g fill="#39ff7f"><rect x="40" y="40" width="20" height="20"/><rect x="60" y="40" width="20" height="20"/><rect x="80" y="40" width="20" height="20" fill="#ff3df8"/><rect x="100" y="40" width="20" height="20" fill="#ffea3a"/></g>
+      <g fill="#cf6e46">
+        <rect x="50" y="90" width="30" height="160"/><rect x="240" y="90" width="30" height="160"/>
+        <rect x="80" y="90" width="30" height="30"/><rect x="210" y="90" width="30" height="30"/>
+        <rect x="110" y="120" width="30" height="30"/><rect x="180" y="120" width="30" height="30"/>
+        <rect x="140" y="150" width="40" height="30"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+<!-- A5 CAPTION · bottom-left -->
+<div class="sticker s-cap" aria-hidden="true">
+  <svg viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="6" width="468" height="148" rx="22" fill="#f6efe2"/>
+    <rect x="22" y="22" width="436" height="116" rx="14" fill="none" stroke="#15110d" stroke-width="2"/>
+    <text x="240" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="500" font-size="20" letter-spacing="3" fill="#6b5d4c">— MADE BY —</text>
+    <text x="240" y="108" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="36" letter-spacing="-1.5" fill="#15110d">Martín <tspan fill="#cf6e46" font-weight="800">Campos.</tspan></text>
+  </svg>
+</div>
+
+<main>
+
+  <!-- ═══ 01 HERO ═══ -->
+  <section id="hero" data-screen-label="01 Hero">
+    <div class="hero-inner">
+      <div class="hero-lockup">
+        <span class="hero-small">MARTIN</span>
+        <svg class="hero-mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><rect width="96" height="96" rx="22" fill="#cf6e46"/><text x="48" y="48" text-anchor="middle" dominant-baseline="central" font-family="Archivo, sans-serif" font-weight="700" font-size="48" letter-spacing="-2.4" fill="#15110d">MM</text></svg>
+        <span class="hero-word">Make.</span>
+      </div>
+      <h1 class="hero-title"> Apps, Software and web desing
+made in Santiago.</h1>
+      <div class="hero-sub"><b>INDIE APP STUDIO</b> · SANTIAGO · CL</div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>scroll</span>
+      <div class="arrow-down"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 PAD WORKS ═══ -->
+  <section id="padworks" data-screen-label="02 Pad Works">
+    <div class="container">
+      <div class="product-grid">
+        <div class="product-text">
+          <span class="badge beta">● BETA</span>
+          <h2>Pad Works<span class="dot">.</span></h2>
+          <p class="lede">Expansion kit generator for Akai MPC.</p>
+          <p class="body">Genera kits profesionales con <b>smart sample assignment</b>, clasificación de audio con IA y exporta a <b>6 formatos</b> — MPC, SP404, Ableton, Maschine, Elektron, Universal.</p>
+          <div class="actions">
+            <a href="https://padworks.io" target="_blank" rel="noopener" class="cta primary">padworks.io <span class="arrow">→</span></a>
+            <a href="https://gumroad.com" target="_blank" rel="noopener" class="cta">$39 on Gumroad</a>
+          </div>
+        </div>
+        <div class="product-visual">
+          <div class="pad-grid" aria-hidden="true">
+            <div class="pad c2" style="animation-delay: 80ms"></div>
+            <div class="pad c1" style="animation-delay: 120ms"></div>
+            <div class="pad c4" style="animation-delay: 160ms"></div>
+            <div class="pad c2" style="animation-delay: 200ms"></div>
+            <div class="pad c1" style="animation-delay: 240ms"></div>
+            <div class="pad c3" style="animation-delay: 280ms"></div>
+            <div class="pad c2" style="animation-delay: 320ms"></div>
+            <div class="pad c5" style="animation-delay: 360ms"></div>
+            <div class="pad c4" style="animation-delay: 400ms"></div>
+            <div class="pad c1" style="animation-delay: 440ms"></div>
+            <div class="pad c2" style="animation-delay: 480ms"></div>
+            <div class="pad c3" style="animation-delay: 520ms"></div>
+            <div class="pad c5" style="animation-delay: 560ms"></div>
+            <div class="pad c4" style="animation-delay: 600ms"></div>
+            <div class="pad c1" style="animation-delay: 640ms"></div>
+            <div class="pad c2" style="animation-delay: 680ms"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 WATTAI ═══ -->
+  <section id="wattai" data-screen-label="03 Wattai">
+    <div class="container">
+      <div class="product-grid">
+        <div class="product-text">
+          <span class="badge live">● LIVE</span>
+          <h2>Wattai<span class="dot">.</span></h2>
+          <p class="lede">Energy consumption, scanned.</p>
+          <p class="body">Escanea cualquier electrodoméstico, calcula costos reales y compara entre espacios. Datos integrados con la <b>CNE</b> de Chile y <b>WLTP</b> para autos eléctricos.</p>
+          <div class="stat">
+            <span class="num" id="wCounter">0</span>
+            <span class="label">Devices · WLTP cars · live data</span>
+          </div>
+          <div class="actions">
+            <a href="https://wattai.app" target="_blank" rel="noopener" class="cta primary">wattai.app <span class="arrow">→</span></a>
+            <a href="#" class="cta">App Store</a>
+            <a href="#" class="cta">Google Play</a>
+          </div>
+        </div>
+        <div class="product-visual">
+          <div class="phone" aria-hidden="true">
+            <div class="phone-status">
+              <span>9:41</span>
+              <span>●●● ⚡ 100%</span>
+            </div>
+            <div class="phone-screen">
+              <div class="w-mark">W</div>
+              <div class="w-app-name">Wattai</div>
+              <div>
+                <div class="w-counter" id="phoneCounter">$0</div>
+                <div class="w-counter-sub">monthly · CLP</div>
+              </div>
+              <div class="w-bars">
+                <div class="w-bar"></div>
+                <div class="w-bar"></div>
+                <div class="w-bar"></div>
+                <div class="w-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 LITHIC ═══ -->
+  <section id="lithic" data-screen-label="04 Lithic">
+    <div class="container">
+      <div class="product-grid">
+        <div class="product-text">
+          <span class="badge dev">IN DEVELOPMENT</span>
+          <h2>Lithic<span class="dot">.</span></h2>
+          <p class="lede">AI-powered analysis for archaeology.</p>
+          <p class="body">Estudio lítico digital para arqueólogos y consultoras. <b>Análisis de líticos, metales y cerámicas</b> con inteligencia artificial — clasificación, documentación y catalogación asistida.</p>
+          <div class="actions">
+            <a href="https://lithic-ai-landing.vercel.app" target="_blank" rel="noopener" class="cta primary">Visit Lithic <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div class="product-visual">
+          <div class="lithic-visual">
+            <div class="lithic-stage">
+              <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- arrowhead -->
+                <path d="M200 80 L260 200 L240 220 L250 290 L210 320 L200 340 L190 320 L150 290 L160 220 L140 200 Z"
+                      fill="#a85433" stroke="#cf6e46" stroke-width="1.5" opacity="0.95"/>
+                <!-- chips/flake patterns -->
+                <g stroke="#15110d" stroke-width="1" fill="none" opacity="0.5">
+                  <path d="M200 100 L210 140 L195 180"/>
+                  <path d="M200 100 L185 145 L200 190"/>
+                  <path d="M195 200 L220 230"/>
+                  <path d="M200 250 L185 280"/>
+                  <path d="M200 250 L215 285"/>
+                </g>
+                <!-- scan lines (animated) -->
+                <line class="scan-line s1" x1="60" y1="160" x2="340" y2="160"
+                      stroke="#e08a64" stroke-width="1" stroke-dasharray="4 4"/>
+                <line class="scan-line s2" x1="60" y1="240" x2="340" y2="240"
+                      stroke="#6b8a9e" stroke-width="1" stroke-dasharray="4 4"/>
+                <line class="scan-line s3" x1="200" y1="60" x2="200" y2="350"
+                      stroke="#e08a64" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.6"/>
+                <!-- callouts -->
+                <g font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#b9aa90">
+                  <text x="60" y="155">PT.001 · APEX</text>
+                  <text x="60" y="235">PT.014 · TANG</text>
+                  <text x="295" y="80">SCAN_001</text>
+                </g>
+                <!-- corner brackets -->
+                <g stroke="#cf6e46" stroke-width="1.4" fill="none">
+                  <path d="M40 40 L40 70 M40 40 L70 40"/>
+                  <path d="M360 40 L360 70 M360 40 L330 40"/>
+                  <path d="M40 360 L40 330 M40 360 L70 360"/>
+                  <path d="M360 360 L360 330 M360 360 L330 360"/>
+                </g>
+              </svg>
+            </div>
+            <div class="lithic-tags">
+              <span class="active">PIEDRA</span>
+              <span>METAL</span>
+              <span>CERÁMICA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 SERVICES ═══ -->
+  <section id="services" data-screen-label="05 Services">
+    <div class="container">
+      <div class="services-inner">
+        <div class="services-head">
+          <div>
+            <div class="label">● Services · open for projects</div>
+            <h2>¿Tienes una idea?<br><span class="accent">La hacemos realidad.</span></h2>
+          </div>
+          <p class="lead">Analizamos tu idea, diseñamos cada componente y construimos un producto con <b>identidad clara</b> y <b>consistencia real</b>. Desde la marca hasta el código. Sin templates, sin atajos — solo craft.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3 v18 M3 12 h18"/><circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.25" stroke="none"/></svg>
+            </div>
+            <div class="service-body">
+              <span class="num">01 · BRAND</span>
+              <h3>Diseño de marca</h3>
+              <p>Identidad visual, logo, paleta, tipografía, brand kit completo y sistema escalable.</p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9 h18"/><circle cx="6" cy="6.5" r="0.6" fill="currentColor"/><circle cx="8.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+            </div>
+            <div class="service-body">
+              <span class="num">02 · WEB</span>
+              <h3>Diseño web</h3>
+              <p>Landings, portafolios y sitios de producto. Diseño premium, hecho a medida — no templates.</p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5" fill="currentColor" opacity="0.3"/></svg>
+            </div>
+            <div class="service-body">
+              <span class="num">03 · APPS</span>
+              <h3>Web apps</h3>
+              <p>Aplicaciones web funcionales: dashboards, herramientas internas, plataformas SaaS.</p>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18 h4"/></svg>
+            </div>
+            <div class="service-body">
+              <span class="num">04 · MOBILE</span>
+              <h3>Apps móviles &amp; software</h3>
+              <p>iOS, Android, desktop. Del concepto al App Store, end-to-end.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="services-cta">
+          <span class="ask">Conversemos.</span>
+          <a href="mailto:hola@martinmake.com" class="cta primary" id="ctaEmail">hola@martinmake.com <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 ABOUT ═══ -->
+  <section id="about" data-screen-label="06 About">
+    <div class="container">
+      <div class="about-inner">
+        <svg class="about-mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><rect width="96" height="96" rx="22" fill="#cf6e46"/><text x="48" y="48" text-anchor="middle" dominant-baseline="central" font-family="Archivo, sans-serif" font-weight="700" font-size="48" letter-spacing="-2.4" fill="#15110d">MM</text></svg>
+        <h2>Built by <span class="accent">Martín.</span></h2>
+        <p class="bio">Solo indie developer desde <b>Santiago, Chile</b>. Diseño, construyo y publico apps que resuelven problemas reales. <b>Músico, vibecoder, maker</b> — craft over hype.</p>
+        <div class="links">
+          <a href="mailto:hola@martinmake.com" class="email">hola@martinmake.com</a>
+          <a href="https://github.com/MARTINMRVS" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://tiktok.com/@wattai.app" target="_blank" rel="noopener">TikTok</a>
+        </div>
+
+        <div class="about-stickers">
+          <!-- B4 HOLO → mailto -->
+          <a class="sticker s-holo" href="mailto:hola@martinmake.com" aria-label="Escribir email">
+            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="holoBgLand" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#a3e6ff"/>
+                  <stop offset="25%" stop-color="#ffd6f5"/>
+                  <stop offset="50%" stop-color="#fff5c4"/>
+                  <stop offset="75%" stop-color="#c4ffe0"/>
+                  <stop offset="100%" stop-color="#d6c4ff"/>
+                </linearGradient>
+              </defs>
+              <rect x="14" y="14" width="292" height="292" rx="64" fill="#f6efe2"/>
+              <rect x="36" y="36" width="248" height="248" rx="50" fill="url(#holoBgLand)"/>
+              <rect x="36" y="36" width="248" height="248" rx="50" fill="none" stroke="#15110d" stroke-width="3"/>
+              <text x="160" y="140" text-anchor="middle" dominant-baseline="central" font-family="Archivo, sans-serif" font-weight="800" font-size="96" letter-spacing="-5" fill="#15110d">MM</text>
+              <text x="160" y="240" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="14" letter-spacing="3" fill="#15110d">EMAIL</text>
+              <text x="160" y="262" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="11" letter-spacing="3" fill="#15110d">HOLO · 001/100</text>
+            </svg>
+          </a>
+          <!-- A4 DOT → github -->
+          <a class="sticker s-dot" href="https://github.com/MARTINMRVS" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="160" cy="160" r="150" fill="#f6efe2"/>
+              <circle cx="160" cy="160" r="120" fill="#cf6e46"/>
+              <text x="160" y="160" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-weight="700" font-size="22" letter-spacing="3" fill="#15110d">GITHUB</text>
+            </svg>
+          </a>
+        </div>
+
+        <footer class="foot">
+          <span>© 2026 <b>MARTIN MAKE</b></span>
+          <span>SANTIAGO · CL</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // IntersectionObserver — toggle .in-view + active nav
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav ul a[data-target]');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => obs.observe(s));
+
+  // Wattai count-up — triggers when section enters
+  const wCounter = document.getElementById('wCounter');
+  const phoneCounter = document.getElementById('phoneCounter');
+  let wattaiAnimated = false;
+  const wattaiObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !wattaiAnimated) {
+        wattaiAnimated = true;
+        animateCount(wCounter, 0, 575, 1200, v => v + '+');
+        animateCount(phoneCounter, 0, 38420, 1400, v => '$' + v.toLocaleString('es-CL'));
+      }
+    });
+  }, { threshold: 0.4 });
+  wattaiObs.observe(document.getElementById('wattai'));
+
+  function animateCount(el, from, to, duration, format) {
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = Math.round(from + (to - from) * eased);
+      el.textContent = format(v);
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Mobile menu toggle
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    document.getElementById('navList').classList.toggle('open');
+  });
+  navLinks.forEach(a => a.addEventListener('click', () => {
+    document.getElementById('navList').classList.remove('open');
+  }));
+</script>
+
+</body>
+</html>
