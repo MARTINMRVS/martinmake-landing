@@ -1,0 +1,209 @@
+/* ═══════════════════════════════════════════════════════════
+   MARTIN MAKE — DESIGN TOKENS v1.0
+   Single source of truth · CSS custom properties
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ─── COLORS · Primary ─────────────────────────────── */
+  --color-terra: #cf6e46;          /* primary brand */
+  --color-terra-2: #e08a64;         /* hover / accent text */
+  --color-terra-deep: #a85433;      /* pressed / shadow */
+  --color-ink: #15110d;             /* primary text on light */
+  --color-paper: #f6efe2;           /* primary surface light */
+
+  /* ─── COLORS · Surface · Dark mode ─────────────────── */
+  --color-bg: #0e0a07;              /* base canvas */
+  --color-bg-2: #15110d;            /* card / section alt */
+  --color-bg-3: #1c1612;            /* hover / elevated */
+  --color-rule: #2a2018;            /* strong divider */
+  --color-rule-soft: #1f1812;       /* soft divider */
+
+  /* ─── COLORS · Text · Dark mode ─────────────────────── */
+  --color-fg: #f1e7d8;              /* primary */
+  --color-fg-2: #b9aa90;            /* secondary */
+  --color-fg-mute: #6b5d4c;         /* muted / labels */
+
+  /* ─── COLORS · Surface · Light mode ─────────────────── */
+  --color-bg-light: #f6efe2;
+  --color-bg-2-light: #ede3d1;
+  --color-rule-light: #d8c8a8;
+
+  /* ─── COLORS · Text · Light mode ────────────────────── */
+  --color-fg-light: #2a1f15;
+  --color-fg-2-light: #5a4a38;
+  --color-fg-mute-light: #8a7860;
+
+  /* ─── COLORS · Secondary palette ────────────────────── */
+  --color-olive: #7a8b6f;           /* approval / success */
+  --color-amber: #d49a3e;           /* warning / beta */
+  --color-brick: #c4513f;           /* error / urgent */
+  --color-slate: #6b8a9e;           /* info / archive */
+
+  /* ─── COLORS · Functional ───────────────────────────── */
+  --color-success: #7ec07e;
+  --color-warning: var(--color-amber);
+  --color-error: var(--color-brick);
+  --color-info: var(--color-slate);
+
+  /* ─── COLORS · Product accents ──────────────────────── */
+  --color-wattai: #e8923a;
+  --color-padworks: var(--color-amber);
+  --color-lithic: var(--color-slate);
+
+  /* ─── TYPOGRAPHY · Families ─────────────────────────── */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Geist', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ─── TYPOGRAPHY · Weights ──────────────────────────── */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  /* ─── TYPOGRAPHY · Scale ────────────────────────────── */
+  --fs-display: clamp(48px, 7vw, 96px);     /* hero */
+  --fs-h1: clamp(40px, 5.4vw, 76px);        /* section title */
+  --fs-h2: clamp(32px, 4vw, 56px);
+  --fs-h3: clamp(24px, 2.4vw, 32px);
+  --fs-h4: 22px;
+  --fs-h5: 18px;
+  --fs-h6: 16px;
+  --fs-lede: clamp(18px, 2vw, 28px);        /* lead paragraph */
+  --fs-body: 15px;
+  --fs-body-sm: 14px;
+  --fs-caption: 13px;
+  --fs-mono: 11px;
+  --fs-mono-sm: 10px;
+
+  /* ─── TYPOGRAPHY · Line height ──────────────────────── */
+  --lh-tight: 0.98;
+  --lh-snug: 1.1;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.65;
+
+  /* ─── TYPOGRAPHY · Letter spacing ───────────────────── */
+  --ls-display: -0.045em;
+  --ls-tight: -0.03em;
+  --ls-normal: 0;
+  --ls-mono: 0.14em;
+  --ls-mono-wide: 0.22em;
+  --ls-mono-extra: 0.36em;
+
+  /* ─── SPACING · 8pt scale ───────────────────────────── */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 56px;
+  --space-11: 64px;
+  --space-12: 80px;
+  --space-13: 96px;
+  --space-14: 120px;
+
+  /* ─── BORDER RADIUS ─────────────────────────────────── */
+  --radius-xs: 4px;
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 22px;     /* logo box · canon */
+  --radius-3xl: 30px;
+  --radius-full: 999px;
+
+  /* ─── BORDER WIDTH ──────────────────────────────────── */
+  --border-thin: 1px;
+  --border-base: 1.5px;
+  --border-thick: 2px;
+
+  /* ─── SHADOWS ───────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-lg: 0 30px 80px -20px rgba(0,0,0,0.6);
+  --shadow-glow-terra: 0 0 24px rgba(207,110,70,0.4);
+  --shadow-glow-amber: 0 0 16px rgba(212,154,62,0.4);
+
+  /* ─── MOTION ────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* ─── LAYOUT ────────────────────────────────────────── */
+  --container-max: 1280px;
+  --container-narrow: 720px;
+  --content-max: 44ch;
+  --gutter: 24px;
+  --gutter-lg: 60px;
+
+  /* ─── Z-INDEX ───────────────────────────────────────── */
+  --z-base: 1;
+  --z-dropdown: 50;
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+}
+
+/* ─── BREAKPOINTS · Reference (CSS vars can't be used in @media)
+   Use these values directly in @media queries ──────────────── */
+/*
+  --bp-xs:   480px;
+  --bp-sm:   640px;
+  --bp-md:   768px;
+  --bp-lg:   900px;
+  --bp-xl:   1200px;
+  --bp-2xl:  1440px;
+*/
+
+/* ─── DARK MODE OVERRIDE (default · no toggle needed) ─── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: var(--color-bg-light);
+    --color-bg-2: var(--color-bg-2-light);
+    --color-rule: var(--color-rule-light);
+    --color-fg: var(--color-fg-light);
+    --color-fg-2: var(--color-fg-2-light);
+    --color-fg-mute: var(--color-fg-mute-light);
+  }
+}
+
+/* ─── REDUCED MOTION ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   USAGE EXAMPLE
+
+   .hero-title {
+     font-family: var(--font-display);
+     font-weight: var(--fw-black);
+     font-size: var(--fs-display);
+     letter-spacing: var(--ls-display);
+     line-height: var(--lh-tight);
+     color: var(--color-fg);
+   }
+
+   .button {
+     background: var(--color-terra);
+     color: var(--color-ink);
+     padding: var(--space-3) var(--space-5);
+     border-radius: var(--radius-lg);
+     transition: all var(--duration-fast) var(--ease-out);
+   }
+
+   ═══════════════════════════════════════════════════════════ */
