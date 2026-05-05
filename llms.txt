@@ -1,0 +1,26 @@
+# Martin Make
+
+> Indie app studio from Santiago, Chile. We design, build, and ship apps that solve real problems.
+
+## About
+
+Martin Make is a solo indie studio founded by Martín Campos. We create mobile apps, web apps, and desktop software across multiple industries: energy, music production, and archaeology.
+
+## Products
+
+- [Wattai](https://wattai.app): Energy consumption calculator with AI scanning. Available on iOS and Android.
+- [Pad Works](https://padworks.io): Expansion kit generator for Akai MPC. 6 export formats. Desktop app, $39.
+- [Lithic](https://lithic-ai-landing.vercel.app): AI-powered archaeological analysis for lithics, metals, and ceramics.
+
+## Services
+
+- Brand Design: Visual identity, logo, palette, typography, brand kit.
+- Web Design: Landing pages, portfolios, product sites.
+- Web Apps: Dashboards, tools, platforms.
+- Mobile Apps: iOS and Android, from concept to App Store.
+
+## Contact
+
+- Email: hola@martinmake.com
+- GitHub: https://github.com/MARTINMRVS
+- Location: Santiago, Chile
