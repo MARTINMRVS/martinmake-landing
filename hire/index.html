@@ -1076,13 +1076,16 @@ footer .credit .glyph {
   h1 { font-size: clamp(44px, 11vw, 80px); letter-spacing: -2px; }
 }
 @media (max-width: 480px) {
-  .container { padding: 0 18px; }
+  .container { padding: 0 16px; }
+  h1 { font-size: clamp(32px, 8vw, 64px); letter-spacing: -1.5px; max-width: 100%; }
   .stats-bar { grid-template-columns: 1fr; }
   .stat:not(:last-child)::after { display: none; }
   .stat { border-bottom: 1px solid var(--border-subtle); }
   .hero-actions { flex-direction: column; align-items: stretch; }
-  .btn { justify-content: center; }
+  .btn { justify-content: center; width: 100%; }
   .metric-value { font-size: 40px; min-width: 80px; }
+  .project-card.featured { padding: 24px; }
+  .project-card.featured .project-title { font-size: 28px; }
 }
 </style>
 </head>
