@@ -2,7 +2,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <title>Martin Make</title>
   <rect width="512" height="512" rx="108" fill="#cf6e46"/>
-  <text x="256" y="256" text-anchor="middle" dominant-baseline="central"
-        font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif"
-        font-weight="900" font-size="260" letter-spacing="-13" fill="#15110d">MM</text>
+  <g stroke="#15110d" stroke-width="38" stroke-linecap="square" stroke-linejoin="miter" fill="none">
+    <path d="M 82 372 L 82 140 L 149 260 L 216 140 L 216 372"/>
+    <path d="M 296 372 L 296 140 L 363 260 L 430 140 L 430 372"/>
+  </g>
 </svg>
