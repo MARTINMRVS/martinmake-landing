@@ -947,6 +947,30 @@
     .jm-close { transition: none; }
     .jm-close:hover { transform: none; }
   }
+
+  /* ════════ ELIXIR CREATOR (film) ════════ */
+  #elixir { background: #000; }
+  .film { display: flex; flex-direction: column; gap: 28px; }
+  .film-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px;
+    opacity: 0; transform: translateY(16px); }
+  .in-view .film-head { animation: fadeUp 600ms ease-out forwards; }
+  .film-head h2 { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(44px, 6vw, 88px);
+    letter-spacing: -0.045em; line-height: 0.96; margin-top: 14px; }
+  .film-head h2 .dot { color: var(--terra-2); }
+  .film-head .lede { font-family: 'Archivo', sans-serif; font-weight: 500; font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.3; color: var(--fg-2); max-width: 34ch; margin-top: 10px; }
+  .film-player { position: relative; width: 100%; aspect-ratio: 2200 / 940; background: #000;
+    border: 1px solid var(--rule); border-radius: 14px; overflow: hidden;
+    opacity: 0; transform: translateY(16px); }
+  .in-view .film-player { animation: fadeUp 700ms 200ms ease-out forwards; }
+  .film-player video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+  .film-lang { display: inline-flex; gap: 8px; }
+  .film-lang button { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--rule); background: transparent; color: var(--fg-2); transition: all 240ms ease-out; }
+  .film-lang button[aria-pressed="true"] { border-color: var(--terra); color: var(--terra-2); }
+  .film-credit { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--fg-mute); }
 </style>
 </head>
 <body>
@@ -961,6 +985,7 @@
   </a>
   <button class="menu-toggle" aria-label="Open menu" id="menuToggle">☰</button>
   <ul id="navList">
+    <li><a href="#elixir" data-target="elixir">Elixir</a></li>
     <li><a href="#padworks" data-target="padworks">Pad Works</a></li>
     <li><a href="#wattai" data-target="wattai">Wattai</a></li>
     <li><a href="#lithic" data-target="lithic">Lithic</a></li>
@@ -1056,6 +1081,42 @@ made in Santiago.</h1>
       <div class="hero-sub"><b>INDIE APP STUDIO</b> · SANTIAGO · CL</div>
     </div>
   </section>
+
+  <!-- ═══ ELIXIR CREATOR · FILM ═══ -->
+  <section id="elixir" data-screen-label="Elixir Creator">
+    <div class="container film">
+      <div class="film-head">
+        <div>
+          <span class="badge dev">Original · Teaser</span>
+          <h2>Elixir Creator<span class="dot">.</span></h2>
+          <p class="lede">Una saga de ciencia ficción hecha con IA. Idea original, guion, música y producción de Martín Campos.</p>
+        </div>
+        <div class="film-lang" role="group" aria-label="Idioma del teaser">
+          <button type="button" data-src="https://d2ol7oe51mr4n9.cloudfront.net/user_3KwMePO098EjmQSQeNF9ziQoN4h/e7ac918e-dfd8-46ff-bdf9-b4b507bea4fa.mp4" aria-pressed="true">Español</button>
+          <button type="button" data-src="https://d2ol7oe51mr4n9.cloudfront.net/user_3KwMePO098EjmQSQeNF9ziQoN4h/3f68f36e-6586-4e42-abe2-fcc43a85b643.mp4" aria-pressed="false">English</button>
+        </div>
+      </div>
+      <div class="film-player">
+        <video id="elixirVideo" controls playsinline preload="none" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3KwMePO098EjmQSQeNF9ziQoN4h/ea4260c6-b4a9-4cc4-ba96-b06968cdb49d.jpg" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3KwMePO098EjmQSQeNF9ziQoN4h/e7ac918e-dfd8-46ff-bdf9-b4b507bea4fa.mp4">
+          Tu navegador no puede reproducir este video.
+        </video>
+      </div>
+      <span class="film-credit">Martin Make · 2026 · 4:45</span>
+    </div>
+  </section>
+  <script>
+    (function () {
+      var v = document.getElementById('elixirVideo');
+      var btns = document.querySelectorAll('#elixir .film-lang button');
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (b.getAttribute('aria-pressed') === 'true') return;
+          btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+          var playing = !v.paused; v.src = b.dataset.src; v.load(); if (playing) v.play();
+        });
+      });
+    })();
+  </script>
 
   <!-- ═══ 02 PAD WORKS ═══ -->
   <section id="padworks" data-screen-label="02 Pad Works">
