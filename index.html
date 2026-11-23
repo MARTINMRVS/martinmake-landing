@@ -180,6 +180,11 @@
   }
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
+    /* animations are off, so show the final state of every .in-view reveal */
+    .film-head, .film-player, .hero-lockup, .hero-title, .hero-sub,
+    .product-text, .product-visual, .pad, .services-head, .service-card,
+    .services-cta, .about-inner { opacity: 1 !important; transform: none !important; }
+    .lithic-stage .scan-line { stroke-dashoffset: 0 !important; }
   }
 
   /* ─── Header ─── */
