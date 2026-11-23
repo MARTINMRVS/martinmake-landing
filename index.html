@@ -273,7 +273,10 @@
     position: fixed; left: 24px; bottom: 24px; z-index: 200;
     width: 140px; height: auto; transform: rotate(-4deg);
     cursor: default;
+    transition: opacity 240ms ease-out;
   }
+  /* hidden while it would sit on top of the Elixir player / credit line */
+  .sticker.s-cap.is-hidden { opacity: 0; pointer-events: none; }
   @media (max-width: 900px) {
     .sticker-rail { right: 12px; gap: 14px; top: 72px; }
     .sticker.s-riso { width: 70px; height: 70px; }
@@ -968,6 +971,8 @@
     .film-player { width: min(100%, max(560px, calc((100vh - 380px) * 2200 / 940)));
       width: min(100%, max(560px, calc((100svh - 380px) * 2200 / 940))); }
   }
+  /* phones: keep the Elixir heading clear of the fixed right sticker rail */
+  @media (max-width: 600px) { #elixir .film-head { padding-right: 72px; } }
   .film-player video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
   .film-credit { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--fg-mute); }
@@ -1405,13 +1410,39 @@ made in Santiago.</h1>
   const navObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const id = entry.target.id;
+        // the hero has no menu link: keep "Elixir" (the section above it) highlighted
+        const id = entry.target.id === 'hero' ? 'elixir' : entry.target.id;
         navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
       }
     });
   }, { threshold: 0.4 });
 
   sections.forEach(s => { revealObs.observe(s); navObs.observe(s); });
+
+  // Caption sticker (fixed, bottom-left): fade it out while it overlaps the Elixir
+  // player or credit line, so it never covers the film or "Martin Make · 2026 · 4:45".
+  (function () {
+    const cap = document.querySelector('.sticker.s-cap');
+    const targets = [document.querySelector('#elixir .film-player'), document.querySelector('#elixir .film-credit')].filter(Boolean);
+    if (!cap || !targets.length) return;
+    const PAD = 12;
+    let queued = false;
+    function check() {
+      queued = false;
+      cap.classList.remove('is-hidden');           // measure at its real position
+      const c = cap.getBoundingClientRect();
+      const hit = targets.some(t => {
+        const r = t.getBoundingClientRect();
+        return c.left < r.right + PAD && c.right > r.left - PAD && c.top < r.bottom + PAD && c.bottom > r.top - PAD;
+      });
+      cap.classList.toggle('is-hidden', hit);
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(check); } }
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    window.addEventListener('load', queue);
+    check();
+  })();
 
   // Fail-safe: if any section is still hidden 1.5s after load (extremely tall
   // sections, prerender quirks, paused tabs, observer bugs), force-reveal it.
