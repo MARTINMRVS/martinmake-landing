@@ -174,6 +174,7 @@
     font-family: 'Geist', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    overflow-x: clip; /* clip doesn't create a scroll container, so position: sticky works */
   }
   @media (max-width: 768px) {
     html { scroll-snap-type: none; }
@@ -972,28 +973,21 @@
   .mm-rv { opacity: 0; transform: translateY(18px); transition: opacity 700ms ease-out, transform 700ms ease-out; }
   .mm-rv.is-in { opacity: 1; transform: none; }
 
-  /* ─── How I work (paper, big word + floating media) ─── */
-  .mm-work { background: var(--paper); color: var(--paper-fg); min-height: 120vh; }
+  /* ─── How I work: sticky stage, media rising, stack dissolving ─── */
+  .mm-work { background: var(--paper); color: var(--paper-fg); height: 200vh; min-height: 0; display: block; padding: 0; overflow: visible; }
+  .work-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 90px 60px 50px; }
   .mm-work .eyebrow { color: #8a7a66; }
   .work-float { position: absolute; inset: 0; pointer-events: none; }
-  .wf { position: absolute; border-radius: 10px; object-fit: cover; box-shadow: 0 24px 60px rgba(42,31,21,0.25); will-change: transform; }
-  .wf1 { width: 22vw; aspect-ratio: 16/9; left: 3vw; top: 10%; }
-  .wf2 { width: 16vw; aspect-ratio: 16/9; right: 9vw; top: 7%; }
-  .wf3 { width: 14vw; aspect-ratio: 4/5; left: 8vw; bottom: 12%; }
-  .wf4 { width: 17vw; aspect-ratio: 3/2; right: 4vw; top: 40%; }
-  .wf5 { width: 15vw; aspect-ratio: 16/9; left: 34vw; bottom: 4%; }
-  .wf6 { width: 12vw; aspect-ratio: 4/5; right: 20vw; bottom: 8%; }
-  .work-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+  .wf { position: absolute; border-radius: 12px; object-fit: cover; box-shadow: 0 30px 70px rgba(42,31,21,0.22); will-change: transform, opacity; }
+  .wf1 { width: 22vw; aspect-ratio: 16/9; left: 3vw; top: 58vh; }
+  .wf2 { width: 19vw; aspect-ratio: 16/9; right: 3vw; top: 82vh; }
+  .wf3 { width: 15vw; aspect-ratio: 3/2; left: 9vw; top: 128vh; }
+  .work-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 26px; will-change: transform, opacity; }
   .work-word { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(84px, 16vw, 240px); letter-spacing: -0.06em; line-height: 0.85; color: #15110d; }
   .work-word .dot, .pj-name .dot { color: var(--terra); }
   .work-lede { font-family: 'Archivo', sans-serif; font-weight: 500; font-size: clamp(18px, 1.8vw, 24px); line-height: 1.35; max-width: 44ch; color: #3a2e22; }
-  .work-flow { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; max-width: 1100px; text-align: left; margin-top: 18px; }
-  .work-flow li { background: rgba(255,255,255,0.72); backdrop-filter: blur(6px); border: 1px solid #e3d6c0; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
-  .work-flow i { font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terra-deep); letter-spacing: 0.16em; }
-  .work-flow b { font-family: 'Archivo', sans-serif; font-size: 20px; letter-spacing: -0.02em; color: #15110d; }
-  .work-flow span { font-size: 14px; line-height: 1.45; color: #5a4a3a; }
-  .work-stack { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-  .work-stack li { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 7px 12px; border: 1px solid #d9caae; border-radius: 999px; color: #5a4a3a; background: rgba(255,255,255,0.6); }
+  .work-stack { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 760px; margin-top: 8px; }
+  .work-stack li { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding: 8px 14px; border: 1px solid #d9caae; border-radius: 999px; color: #5a4a3a; will-change: transform, opacity, filter; }
 
   /* ─── Projects wrapper + thread ─── */
   .projects { position: relative; }
@@ -1113,11 +1107,11 @@
   .ph-cta { margin-top: 40px; }
 
   @media (max-width: 900px) {
-    .wf { display: none; }
-    .wf1, .wf2 { display: block; position: relative; width: 44%; left: auto; right: auto; top: auto; }
-    .work-float { position: relative; display: flex; justify-content: center; gap: 4%; margin-bottom: 30px; }
-    .mm-work { flex-direction: column; min-height: auto; }
-    .work-flow { grid-template-columns: 1fr 1fr; }
+    .mm-work { height: 170vh; }
+    .work-sticky { padding: 84px 18px 40px; }
+    .wf1 { width: 42vw; left: -12vw; }
+    .wf2 { width: 38vw; right: -10vw; }
+    .wf3 { width: 34vw; left: 70vw; }
     .pw-layers, .pw-row, .sr-grid, .wt-grid, .lt-grid, .ec-grid, .ph-demo, .ph-pair { grid-template-columns: 1fr; }
     .pw-row .pw-phone { max-width: 260px; }
     .pw-products, .pw-facts { grid-template-columns: 1fr; }
@@ -1127,10 +1121,13 @@
     .pj { padding-top: 100px; padding-bottom: 80px; }
     .thread { display: none; }
   }
-  @media (max-width: 600px) { .pj-head, .mm-work .work-inner { padding-right: 64px; } }
+  @media (max-width: 600px) { .pj-head { padding-right: 64px; } }
   @media (prefers-reduced-motion: reduce) {
     .mm-rv { opacity: 1 !important; transform: none !important; }
-    .wf { transform: none !important; }
+    .mm-work { height: auto; }
+    .work-sticky { position: relative; height: auto; min-height: 100vh; }
+    .wf { display: none; }
+    .work-inner, .work-stack li { transform: none !important; opacity: 1 !important; filter: none !important; }
   }
 </style>
 </head>
@@ -1250,27 +1247,20 @@
 
   <!-- ═══ HOW I WORK ═══ -->
   <section id="work" class="mm-work" data-screen-label="How I work">
-    <div class="work-float" aria-hidden="true">
-      <img class="wf wf1" data-speed="-0.18" src="media/growl-3d.webp" alt="" loading="lazy">
-      <img class="wf wf2" data-speed="0.12" src="media/elixir-poster.jpg" alt="" loading="lazy">
-      <img class="wf wf3" data-speed="-0.08" src="media/fotografa.webp" alt="" loading="lazy">
-      <img class="wf wf4" data-speed="0.2" src="media/plugin-repeat.webp" alt="" loading="lazy">
-      <img class="wf wf5" data-speed="-0.14" src="media/wattai.webp" alt="" loading="lazy">
-      <img class="wf wf6" data-speed="0.1" src="media/pantalla.webp" alt="" loading="lazy">
-    </div>
-    <div class="container work-inner">
-      <span class="eyebrow">How I work</span>
-      <h2 class="work-word">Systems<span class="dot">.</span></h2>
-      <p class="work-lede mm-rv">One person, a studio's output. Every product runs through the same system: an orchestrator that plans, an agent that builds in the terminal, and gates that nothing skips.</p>
-      <ol class="work-flow">
-        <li class="mm-rv"><i>01</i><b>Idea &amp; spec</b><span>Planning and architecture with Claude as the orchestrator. Every decision written down before code.</span></li>
-        <li class="mm-rv"><i>02</i><b>Build</b><span>Claude Code in the terminal executes the spec: files, commands, migrations, one task at a time.</span></li>
-        <li class="mm-rv"><i>03</i><b>Gates</b><span>Automatic tests, security audits, and a human ear-and-eye check before anything ships.</span></li>
-        <li class="mm-rv"><i>04</i><b>Ship</b><span>Deploys, payments and releases wired in from day one. Products, not projects.</span></li>
-      </ol>
-      <ul class="work-stack mm-rv" aria-label="Stack">
-        <li>React Native · Expo</li><li>Next.js</li><li>Supabase</li><li>Vercel</li><li>JUCE · C++</li><li>WebView UI</li><li>Higgsfield</li><li>Claude</li>
-      </ul>
+    <div class="work-sticky">
+      <div class="work-float" aria-hidden="true">
+        <img class="wf wf1" data-speed="0.55" src="media/growl-3d.webp" alt="" loading="lazy">
+        <img class="wf wf2" data-speed="0.85" src="media/elixir-poster.jpg" alt="" loading="lazy">
+        <img class="wf wf3" data-speed="0.7" src="media/plugin-repeat.webp" alt="" loading="lazy">
+      </div>
+      <div class="container work-inner">
+        <span class="eyebrow work-k">How I work</span>
+        <h2 class="work-word">Systems<span class="dot">.</span></h2>
+        <p class="work-lede">One person, a studio's output. Every product runs through the same system: an orchestrator that plans, an agent that builds in the terminal, and gates that nothing skips.</p>
+        <ul class="work-stack" aria-label="Stack">
+          <li>React Native · Expo</li><li>Next.js</li><li>Supabase</li><li>Vercel</li><li>JUCE · C++</li><li>WebView UI</li><li>Higgsfield</li><li>Claude</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -1902,6 +1892,8 @@
   // parallax (How I work) + projects thread
   const floats = document.querySelectorAll('.wf[data-speed]');
   const work = document.getElementById('work');
+  const inner = work && work.querySelector('.work-inner');
+  const chips = work ? Array.from(work.querySelectorAll('.work-stack li')) : [];
   const wrap = document.getElementById('projectsWrap');
   const path = document.getElementById('threadPath');
   let len = 0;
@@ -1911,8 +1903,26 @@
     queued = false;
     if (!reduce && work) {
       const r = work.getBoundingClientRect();
-      const p = (innerHeight - r.top);
-      floats.forEach(f => { f.style.transform = `translate3d(0, ${(p * parseFloat(f.dataset.speed)).toFixed(1)}px, 0)`; });
+      const span = r.height - innerHeight;                  // sticky travel
+      const t = Math.min(1, Math.max(0, -r.top / span));    // 0 → 1 while pinned
+      const y = -r.top;                                      // px scrolled into the section
+      floats.forEach(f => {
+        const sp = parseFloat(f.dataset.speed);
+        const o = Math.min(1, Math.max(0, 1.4 - t * 1.25)) * (innerWidth < 900 ? 0.5 : 1);
+        f.style.transform = `translate3d(0, ${(-y * sp).toFixed(1)}px, 0)`;
+        f.style.opacity = o.toFixed(3);
+      });
+      if (inner) {
+        const k = Math.max(0, (t - 0.72) / 0.28);
+        inner.style.transform = `translate3d(0, ${(-k * 60).toFixed(1)}px, 0) scale(${(1 - k * 0.04).toFixed(3)})`;
+        inner.style.opacity = (1 - k).toFixed(3);
+      }
+      chips.forEach((c, i) => {
+        const k = Math.min(1, Math.max(0, (t - 0.28 - i * 0.035) / 0.18));
+        c.style.opacity = (1 - k).toFixed(3);
+        c.style.transform = `translate3d(0, ${(-k * 26).toFixed(1)}px, 0)`;
+        c.style.filter = k > 0 ? `blur(${(k * 6).toFixed(1)}px)` : '';
+      });
     }
     if (!reduce && wrap && path) {
       const r = wrap.getBoundingClientRect();
