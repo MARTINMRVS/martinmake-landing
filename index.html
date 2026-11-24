@@ -1098,7 +1098,7 @@
   .ph-code b { display: block; font-family: 'Archivo', sans-serif; font-size: 64px; letter-spacing: 0.02em; color: var(--fg); margin-top: 6px; }
   .ph-pair { display: grid; grid-template-columns: 1fr 1.25fr; gap: 22px; align-items: end; }
   .ph-pair figure { position: relative; }
-  .ph-pair img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 6px; }
+  .ph-pair img { color: transparent; background: #1b1311; width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; border-radius: 6px; }
   .ph-pair figcaption { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-mute); margin-top: 10px; }
   .ph-raw img { filter: saturate(0.55) contrast(0.86) brightness(0.9) sepia(0.12); transform: rotate(-2.2deg) scale(1.06); }
   .ph-raw { overflow: hidden; border-radius: 6px; }
@@ -1988,11 +1988,18 @@
     const steps = Array.from(document.querySelectorAll('#phSteps li'));
     const codeEl = document.getElementById('phCode');
     let code = 10, timers = [];
+    const cache = {};
+    // preload every demo photo up front
+    Object.values(OCC).forEach(o => { if (!cache[o.img]) cache[o.img] = new Promise(res => { const im = new Image(); im.onload = () => res(true); im.onerror = () => res(false); im.src = o.img; }); });
+    [raw, out].forEach(im => im.addEventListener('error', () => { im.src = 'media/retrato-desfile.webp'; }, { once: true }));
     const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
     function run(occ) {
       timers.forEach(clearTimeout); timers = [];
       const o = OCC[occ]; code += 1;
-      raw.src = o.img; out.src = o.img;
+      // swap the photo only once it is decoded, so the demo never shows a broken image
+      const swap = (src) => { if (raw.getAttribute('src') !== src) { raw.src = src; out.src = src; } };
+      const ready = cache[o.img] || (cache[o.img] = new Promise(res => { const im = new Image(); im.onload = () => res(true); im.onerror = () => res(false); im.src = o.img; }));
+      ready.then(ok => { if (ok) swap(o.img); });
       cover.classList.remove('framed'); cover.dataset.occ = '';
       steps.forEach(s => s.classList.remove('done'));
       set('magK1', o.k1); set('magL1', o.l1); set('magK2', o.k2); set('magL2', o.l2); set('magTag', o.tag);
