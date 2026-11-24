@@ -294,6 +294,13 @@
   @media (max-width: 600px) {
     .sticker-rail .s-glt, .sticker-rail .s-liq, .sticker-rail .s-pix { display: none; }
   }
+  /* 10 links: tighten the inline menu so it still fits before the hamburger kicks in */
+  @media (max-width: 1100px) {
+    .nav ul { gap: 16px; letter-spacing: 0.1em; }
+  }
+  @media (max-width: 860px) {
+    .nav ul { gap: 12px; letter-spacing: 0.06em; }
+  }
   @media (max-width: 768px) {
     header.nav { padding: 14px 20px; }
     .nav ul { display: none; }
@@ -1162,6 +1169,8 @@
     <li><a href="#work" data-target="work">Work</a></li>
     <li><a href="#projects" data-target="projects">Projects</a></li>
     <li><a href="#showrunner" data-target="showrunner">Showrunner</a></li>
+    <li><a href="#wattai" data-target="wattai">Wattai</a></li>
+    <li><a href="#lithic" data-target="lithic">Lithic</a></li>
     <li><a href="#photos" data-target="photos">Photo station</a></li>
     <li><a href="#services" data-target="services">Services</a></li>
     <li><a href="#about" data-target="about">About</a></li>
@@ -1349,7 +1358,7 @@
     </section>
 
     <!-- 03 · WATTAI -->
-    <section id="wattai" class="pj pj--wattai" data-nav="projects" data-screen-label="Wattai">
+    <section id="wattai" class="pj pj--wattai" data-nav="wattai" data-screen-label="Wattai">
       <div class="container">
         <div class="pj-head">
           <span class="eyebrow"><i>03</i> Consumer app · live</span>
@@ -1372,7 +1381,7 @@
     </section>
 
     <!-- 04 · LITHIC -->
-    <section id="lithic" class="pj pj--paper" data-nav="projects" data-screen-label="Lithic">
+    <section id="lithic" class="pj pj--paper" data-nav="lithic" data-screen-label="Lithic">
       <div class="container">
         <div class="pj-head">
           <span class="eyebrow"><i>04</i> AI for archaeology</span>
