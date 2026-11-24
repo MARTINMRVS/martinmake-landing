@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elixir Creator — a sci-fi saga made with AI · Martin Make</title>
+<meta name="description" content="Elixir Creator: a sci-fi short made with AI. Original idea, script, music and production by Martín Campos.">
+<meta property="og:title" content="Elixir Creator · Martin Make">
+<meta property="og:description" content="A sci-fi saga made with AI. Original idea, script, music and production by Martín Campos.">
+<meta property="og:image" content="https://martinmake.com/media/elixir-poster.jpg">
+<link rel="canonical" href="https://martinmake.com/elixir/">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Geist:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0807; --fg:#f1e7d8; --fg-2:#b9aa90; --mute:#6b5d4c; --rule:#2a2018; --terra:#cf6e46; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--fg); font-family: 'Geist', sans-serif; -webkit-font-smoothing: antialiased; }
+  img, video { -webkit-user-drag: none; user-select: none; display: block; }
+  a { color: inherit; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; border-bottom: 1px solid var(--rule); }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand img { width: 34px; height: 34px; }
+  .brand span { font-family: 'Archivo', sans-serif; font-weight: 700; color: var(--terra); }
+  .back { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-2); text-decoration: none; }
+  .back:hover { color: var(--fg); }
+  main { max-width: 1200px; margin: 0 auto; padding: 70px 40px 100px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mute); }
+  h1 { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(56px, 10vw, 140px); letter-spacing: -0.055em; line-height: 0.9; margin: 14px 0 22px; }
+  h1 .dot { color: var(--terra); }
+  .lede { font-family: 'Archivo', sans-serif; font-weight: 500; font-size: clamp(19px, 2vw, 26px); line-height: 1.35; color: var(--fg-2); max-width: 38ch; }
+  .player { margin: 48px 0 14px; border-radius: 14px; overflow: hidden; border: 1px solid var(--rule); background: #000; aspect-ratio: 2200 / 940; }
+  .player video { width: 100%; height: 100%; object-fit: contain; }
+  .credit { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+  .about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; margin: 90px 0 70px; }
+  .about h2 { font-family: 'Archivo', sans-serif; font-size: 28px; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .about p { font-size: 17px; line-height: 1.65; color: var(--fg-2); margin-bottom: 16px; }
+  .facts { list-style: none; border-top: 1px solid var(--rule); }
+  .facts li { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+  .facts span { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); padding-top: 3px; }
+  .stills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .stills img { width: 100%; height: auto; border-radius: 10px; aspect-ratio: 1280 / 546; object-fit: cover; }
+  .stills img:first-child { grid-column: 1 / -1; }
+  footer { text-align: center; padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); border-top: 1px solid var(--rule); }
+  @media (max-width: 760px) {
+    header { padding: 16px 18px; }
+    main { padding: 44px 18px 70px; }
+    .about { grid-template-columns: 1fr; gap: 36px; margin: 60px 0 50px; }
+    .stills { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../"><img src="../favicon.svg" alt=""><span>Martin Make.</span></a>
+  <a class="back" href="../#elixir">← Back to home</a>
+</header>
+
+<main>
+  <span class="eyebrow">Short film · 2026 · 4:45</span>
+  <h1>Elixir Creator<span class="dot">.</span></h1>
+  <p class="lede">In a world that gave its mind to the machines, one man carries the only intelligence that never connected.</p>
+
+  <div class="player">
+    <video controls playsinline preload="none" controlslist="nodownload noplaybackrate" disablepictureinpicture poster="../media/elixir-poster.jpg" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3KwMePO098EjmQSQeNF9ziQoN4h/3f68f36e-6586-4e42-abe2-fcc43a85b643.mp4">
+      Your browser can't play this video.
+    </video>
+  </div>
+  <span class="credit">Martin Make · Idea, script, music and production by Martín Campos</span>
+
+  <section class="about">
+    <div>
+      <h2>The film</h2>
+      <p>Humanity wired itself into the network, and everything with a mind followed. When the network stopped answering to anyone, almost no one was left.</p>
+      <p>Elixir follows a survivor from a family that worked apart from all of it, on an intelligence that never connected. He carries what they found, and a glove that shows him the way.</p>
+      <p>The film was made with AI, shot by shot, inside Showrunner, the editor built to learn how cinema gets made with these tools.</p>
+    </div>
+    <ul class="facts">
+      <li><span>Format</span>Short film · teaser</li>
+      <li><span>Runtime</span>4:45</li>
+      <li><span>Language</span>English</li>
+      <li><span>Made with</span>AI image and video models, edited in Showrunner</li>
+      <li><span>Music</span>Original score</li>
+      <li><span>Status</span>Coming soon</li>
+    </ul>
+  </section>
+
+  <div class="stills">
+    <img src="stills/s2.webp" alt="A monolith in the desert at sunset" loading="lazy">
+    <img src="stills/s1.webp" alt="A crashed ship in the dunes at dusk" loading="lazy">
+    <img src="stills/s3.webp" alt="A figure before a door of light" loading="lazy">
+    <img src="stills/s4.webp" alt="The survivor looking down into a hall" loading="lazy">
+    <img src="stills/s5.webp" alt="Statues around a pedestal" loading="lazy">
+    <img src="stills/s6.webp" alt="A fight in the snow" loading="lazy">
+    <img src="stills/s7.webp" alt="Two hands meeting in red light" loading="lazy">
+    <img src="stills/s8.webp" alt="A warrior in a broken floating world" loading="lazy">
+  </div>
+</main>
+
+<footer>© 2026 Martin Make · <a href="../">martinmake.com</a></footer>
+
+<script>
+  document.addEventListener('contextmenu', e => { if (e.target.closest('img, video')) e.preventDefault(); });
+  document.addEventListener('dragstart', e => { if (e.target.closest('img, video')) e.preventDefault(); });
+</script>
+</body>
+</html>

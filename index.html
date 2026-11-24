@@ -967,6 +967,9 @@
   img, video { -webkit-user-drag: none; user-select: none; }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-mute); }
   .eyebrow i { font-style: normal; color: var(--terra); margin-right: 10px; }
+  .film-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .film-more { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--terra-2); text-decoration: none; }
+  .film-more:hover { color: var(--fg); }
   .film-sub { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--fg-mute); margin-top: 14px; max-width: 70ch; }
 
   /* reveal */
@@ -1158,6 +1161,7 @@
     <li><a href="#elixir" data-target="elixir">Elixir</a></li>
     <li><a href="#work" data-target="work">Work</a></li>
     <li><a href="#projects" data-target="projects">Projects</a></li>
+    <li><a href="#showrunner" data-target="showrunner">Showrunner</a></li>
     <li><a href="#photos" data-target="photos">Photo station</a></li>
     <li><a href="#services" data-target="services">Services</a></li>
     <li><a href="#about" data-target="about">About</a></li>
@@ -1253,7 +1257,7 @@
           Your browser can't play this video.
         </video>
       </div>
-      <span class="film-credit">Martin Make · 2026 · 4:45</span>
+      <div class="film-foot"><span class="film-credit">Martin Make · 2026 · 4:45</span><a class="film-more" href="elixir/">About the film &amp; stills <span>→</span></a></div>
     </div>
   </section>
 
@@ -1323,7 +1327,7 @@
     </section>
 
     <!-- 02 · SHOWRUNNER -->
-    <section id="showrunner" class="pj pj--show" data-nav="projects" data-screen-label="Showrunner">
+    <section id="showrunner" class="pj pj--show" data-nav="showrunner" data-screen-label="Showrunner">
       <div class="container">
         <div class="pj-head">
           <span class="eyebrow"><i>02</i> AI video editor</span>
